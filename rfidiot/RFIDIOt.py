@@ -115,8 +115,8 @@ class rfidiot:
 				else:
 					if string.find(self.readername,'SDI010') == 0:
 						self.readersubtype= self.READER_SCM
-					else:
-						if string.find(self.readername,'ACS ACR122U PICC') == 0:
+					else:						
+						if string.find(self.readername,'ACS ACR1255U-J1 PICC') == 0:
 							self.readersubtype= self.READER_ACS
 							self.pcsc_protocol= smartcard.scard.SCARD_PROTOCOL_T1
 							self.hcard = None
@@ -1348,10 +1348,10 @@ class rfidiot:
 		return True
 	def acs_get_firmware_revision(self):
 		"ACS Get Firmware Revision"
-                self.acs_send_reader_apdu(self.PCSC_APDU['ACS_GET_READER_FIRMWARE'])
+		self.acs_send_reader_apdu(self.PCSC_APDU['ACS_GET_READER_FIRMWARE'])
 		# 'special' APDU that doesn't return in the usual way. sw1,sw2 contains some of the data
-		if len(self.data) > 0:
-	                self.data += self.errorcode
+		if len(self.errorcode) > 0:
+			self.data += self.errorcode
 			self.errorcode= self.ISO_OK
 			return True
 		self.data= ''
